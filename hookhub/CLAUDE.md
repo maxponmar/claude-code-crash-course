@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-HookHub is a Next.js 15.4.6 application using the App Router architecture with TypeScript and Tailwind CSS.
+HookHub is a Next.js 15.4.6 application showcasing Claude Code hooks. It displays a curated catalog of community-driven hooks with categorization, featured items, and GitHub integration.
 
 ## Essential Commands
 
@@ -22,23 +22,52 @@ npm run lint        # Run ESLint
 
 ## Architecture
 
+### Core Technology Stack
 - **Framework**: Next.js 15.4.6 with App Router
-- **Structure**: All application code lives in `src/app/`
-- **Styling**: Tailwind CSS 4.x (no custom config file - uses defaults)
-- **TypeScript**: Configured with path aliases (`@/*` → `./src/*`)
+- **TypeScript**: Strict mode enabled with path aliases (`@/*` → `./src/*`)
+- **Styling**: Tailwind CSS v4 (using defaults, no custom config)
+- **Package Manager**: npm (with pnpm-lock.yaml also present)
 
-## Key Files
+### Project Structure
+```
+hookhub/
+├── src/
+│   ├── app/          # Next.js App Router pages
+│   │   ├── layout.tsx    # Root layout with Geist font
+│   │   ├── page.tsx      # Homepage displaying hooks catalog
+│   │   └── globals.css   # Global styles and Tailwind directives
+│   ├── components/
+│   │   └── HookCard.tsx  # Card component for displaying hooks
+│   ├── types/
+│   │   └── hook.ts       # TypeScript interfaces and enums
+│   └── data/
+│       └── hooks.json    # Static hooks data
+└── memory/           # Testing artifacts
+    ├── frontend/
+    └── spec/
 
-- `src/app/layout.tsx` - Root layout with Geist font setup
-- `src/app/page.tsx` - Home page component
-- `src/app/globals.css` - Global styles and Tailwind directives
+```
+
+### Key Data Models
+
+The application centers around the `Hook` interface with:
+- Categories: Monitoring, Security, Workflow, Testing, Integration, Utility, Learning, Team
+- Hook Types: PreToolUse, PostToolUse, UserPromptSubmit, Notification, Stop, SubagentStart/Stop/Stream
+- Each hook includes: name, description, category, GitHub URL, author, stars, language, and featured flag
+
+### Component Architecture
+
+- **HookCard**: Displays individual hooks with category-specific color coding, language indicators, and GitHub links
+- **Homepage**: Filters and displays featured hooks separately from regular hooks
+- Dark mode support throughout with Tailwind's dark: modifiers
 
 ## Development Notes
 
-- No test framework is currently set up
-- Uses npm as package manager (package-lock.json present)
+- No test framework currently configured
 - ESLint configured with Next.js defaults
-- Supports both light and dark modes via Tailwind
+- Responsive design with mobile-first approach using Tailwind breakpoints (sm, md, lg, xl)
+- Color-coded categories with light/dark mode variants
+- Language-specific indicators for Python, JavaScript, TypeScript, PHP, Go
 
 ## Testing Strategy
 
